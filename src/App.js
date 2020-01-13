@@ -1,20 +1,23 @@
 import React from 'react';
 import './App.css';
-import TodoApp from './todo/TodoApp';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
-const AddNumber = ({match : {params}}) => {
-  const {a, b} = params;
-  return <div> {+a} + {+b} = {+a+(+b)} </div>
-}
+import useTodoList from './hooks/useTodoList';
+import { TodoContextProvider } from './contexts/todoApp';
+import TodoApp from "./components/todoApp";
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 function App() {
+
+  const todoApp = useTodoList();
+
   return (
-    <Router>
-      <Route path="/:filter?" component={TodoApp}/>
-      <Route path="/:a/:b?" component={AddNumber}/>
-    </Router>
+    <TodoContextProvider value={todoApp}>
+      <Router>
+        <Route path="/:filter?" component={TodoApp}/>
+      </Router>
+    </TodoContextProvider>
   );
 }
+
+
 
 export default App;

@@ -19,10 +19,9 @@ export function toggleTodo(index) {
   };
 }
 
-// thunk function
 export function addTodoWithDelay(text) {
-  return (dispatch, getState) => {
-    console.log('current state =', getState)
+  return (dispatch, currentState) => {
+    console.log('current state =', currentState)
     dispatch(addTodo("initial -> " + text));
     setTimeout(() => {
       dispatch(addTodo("delayed -> " + text))

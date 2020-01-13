@@ -1,8 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux';
-import { toggleTodo, removeTodo } from "./actions";
+import { withTodoApp } from '../hoc/withTodoApp';
 // params is used for accesing params in URL
-const TodoList = ({todos, toggleTodo, removeTodo}) => {
+const TodoList = ({todoApp}) => {
+  const {removeTodo, toggleTodo, todos} = todoApp;
   return <div>
     {
       todos.map((todo, index) => {
@@ -16,12 +16,4 @@ const TodoList = ({todos, toggleTodo, removeTodo}) => {
   </div>
 };
 
-const mapStateToProps = (state) => ({
-  todos: state.todos,
-});
-
-export default connect(
-  mapStateToProps,
-  // null,
-  { toggleTodo, removeTodo }
-)(TodoList);
+export default withTodoApp(TodoList);
