@@ -1,8 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 const filterTypes = ['SHOW_ALL', 'SHOW_COMPLETE', 'SHOW_TODO'];
 
-const TodoFilter = ({filter}) => {
+const TodoFilter = () => {
+  const {filter} = useParams();
+
   return <div>
     {
       filterTypes.map(ft => {
