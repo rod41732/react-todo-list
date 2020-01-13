@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { toggleTodo, removeTodo } from "./actions";
-
+// params is used for accesing params in URL
 const TodoList = ({todos, toggleTodo, removeTodo}) => {
   return <div>
     {
