@@ -1,19 +1,17 @@
-import React from 'react'
-import AddTodo from './addTodo';
-import TodoList from './todoList';
-import TodoFilter from './todoFilter'
+import React from 'react';
+import TodoMain from './todoMain';
 import Navbar from './navbar';
+import Sidebar from './sidebar';
 import { useRouteMatch } from 'react-router-dom';
 
 const TodoApp = ({match: { params }}) => {
   console.log(params);
   useRouteMatch("")
-  return (<>
+  return (<div className="grid-app">
     <Navbar/>
-    <AddTodo/>
-    <TodoList/>
-    <TodoFilter/>
-  </>);
+    <Sidebar className="side-bar"/>
+    <TodoMain/>
+  </div>);
 } 
 
 export default TodoApp;

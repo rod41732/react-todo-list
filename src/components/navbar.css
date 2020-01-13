@@ -1,0 +1,26 @@
+.nav-bar {
+  height: 60px;
+  vertical-align: bottom;
+}
+
+.nav-bar > .nav-item {
+  line-height: 60px;
+}
+
+.nav-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav-right > a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+.icon-wrapper {
+  font-size: 32px;
+  line-height: 60px;
+}

@@ -8,7 +8,9 @@ const AddTodo = ({todoApp}) => {
     setText(evt.target.value);
   }
 
-  return <div>
+  return <div style={{
+    display: "flex",
+  }}>
     <label> What todo ? </label>
     <input value={text} onChange={handleTextChange}></input>
     <button onClick={() => todoApp.addTodo(text)}> Add </button>

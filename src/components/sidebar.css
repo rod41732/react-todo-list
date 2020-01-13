@@ -1,0 +1,21 @@
+.side-bar {
+  position: relative;
+  height: calc(100vh - 60px);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content;
+  gap: 1em;
+}
+
+.side-bar > .labels-list {
+  overflow-y: auto;
+}
+
+.side-bar > .labels-list > p {
+  position: sticky;
+  top: 0;
+}
+
+.side-bar .divider {
+  border-bottom: 1px solid #eee;
+}
