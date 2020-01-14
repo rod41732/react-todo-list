@@ -6,11 +6,9 @@ import TodoApp from "./components/todoApp";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 function App() {
-
-  const todoApp = useTodoList();
-
+  
   return (
-    <TodoContextProvider value={todoApp}>
+    <TodoContextProvider>
       <Router>
         <Route path="/:filter?" component={TodoApp}/>
       </Router>

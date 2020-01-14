@@ -3,19 +3,47 @@ import { withTodoApp } from '../hoc/withTodoApp'
 import './sidebar.css';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
-const labels = [
 
-]
+
+const SideBarItem = ({left, right, selected, isLast, target, key, ...otherProps}) => {
+  return (
+    <Link to={target} className="label-item" key={key} {...otherProps}>
+      <div className={
+        classnames({
+          // "rounded-t-lg": idx == 0,
+          // "rounded-b-lg": idx == labels.length-1, 
+          "hover:bg-red-400": !selected,
+          "bg-red-600": selected,
+          "p-2": true,
+          "divider": !isLast,
+        })
+      }>
+        <span className="label-name"> {left}</span>
+        <span className="todo-count"> {right} </span>
+      </div>
+    </Link>
+  )
+}
+
 
 const Sidebar = ({ todoApp }) => {
   const {
     labels,
     selectedLabel,
+    expanded: {mobile},
+    selectLabel,
   } = todoApp;
-  return <div className="side-bar p-4 bg-red-200">
-    <div>
-      <div className="px-2 py-2 bg-white rounded-t-lg divider"> All notes </div>
-      <div className="px-2 py-2 bg-white rounded-b-lg divider"> Reminders  </div>
+  return <div className={
+    classnames({
+      "side-bar p-4 bg-red-200": true,
+      "show": mobile, 
+    })
+  }>
+    <div className="labels-list">
+      { SideBarItem({left: "All Notes", selected: selectedLabel == -1, isLast: false, target: "/", key: 1,
+        onClick: () => selectLabel(-1)}) }
+      { SideBarItem({left: "Reminders", selected: selectedLabel == -2, isLast: false, target: "/", key: 2,
+        onClick: () => selectLabel(-2)}) }
     </div>
 
     <div className="labels-list">
@@ -23,20 +51,11 @@ const Sidebar = ({ todoApp }) => {
       {
         labels.map((label, idx) => {
           return (
-            <Link to={"/labels/" + label.name} className="label-item" key={idx}>
-              <div className={
-                classnames({
-                  // "rounded-t-lg": idx == 0,
-                  // "rounded-b-lg": idx == labels.length-1, 
-                  "bg-red-600": selectedLabel == label.name,
-                  "hover:bg-red-400 p-2": true,
-                  "divider": idx != labels.length - 1,
-                })
-              }>
-                <span className="label-name">{label.name} </span>
-                <span className="todo-count"> 1 </span>
-              </div>
-            </Link>
+            <SideBarItem left={label.name} right={1} 
+              selected={label.id === selectedLabel} isLast={idx != labels.length-1}
+              target={"/" + label.name} key={idx}
+              onClick={() => selectLabel(label.id)}
+            />
           )
         })
       }

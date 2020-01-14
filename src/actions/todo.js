@@ -1,3 +1,5 @@
+import * as actionTypes from './todo.types';
+
 export function addTodo(todo) {
   return {
     type: 'ADD_TODO',
@@ -17,6 +19,36 @@ export function toggleTodo(index) {
     type: 'TOGGLE_TODO',
     index,
   };
+}
+
+export function toggleNavbar() {
+  return {
+    type: actionTypes.TOGGLE_NAVBAR,
+  }
+}
+
+export function updateTodoText(todoId, text) {
+  return {
+    type: actionTypes.UPDATE_TODO_TEXT,
+    todoId,
+    text,
+  }
+}
+
+export function updateLabel(labelId, label) {
+  return {
+    type: actionTypes.UPDATE_LABEL,
+    labelId,
+    label,
+  }
+}
+
+export function selectLabel(labelId) {
+  console.log('selected', labelId)
+  return {
+    type: actionTypes.SELECT_LABEL,
+    labelId,
+  }
 }
 
 // export function addTodoWithDelay(text) {

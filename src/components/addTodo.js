@@ -9,6 +9,9 @@ import { UrgencyIcon } from './common';
 const AddTodo = ({todoApp}) => {
   const [text, setText] = useState("")
   const [urgency, setUrgency] = useState(0);
+  
+  let {selectedLabel} = todoApp;
+  selectedLabel = Math.max(selectedLabel, 0); // if selecting 'All -1 /Reminder -2, add to 'no catergory'
 
   const handleTextChange = (evt) => {
     setText(evt.target.value);
@@ -35,6 +38,7 @@ const AddTodo = ({todoApp}) => {
     <button className="px-4 py-2" onClick={() => todoApp.addTodo({
       text,
       urgency,
+      label: selectedLabel,
     })}> 
       <FontAwesomeIcon icon={faPlus}/>
      </button>

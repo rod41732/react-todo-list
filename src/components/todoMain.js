@@ -1,12 +1,19 @@
 import React from 'react';
 import AddTodo from './addTodo';
 import TodoList from './todoList';
-import TodoFilter from './todoFilter';
 import TodoHeader from './todoHeader';
 import './todoMain.css';
+import { withTodoApp } from '../hoc/withTodoApp';
+import classnames from 'classnames';
 
-const TodoMain = () => {
-  return <div className="todo-main p-4">
+const TodoMain = ({todoApp}) => {
+  const {expanded: {desktop}} = todoApp;
+  return <div className={
+    classnames({
+      "todo-main p-4": true,
+      "expand-todo": desktop,
+    })
+    }>
     <TodoHeader/>
     <AddTodo/>
     <TodoList/>
@@ -14,4 +21,4 @@ const TodoMain = () => {
   </div>;
 }
 
-export default TodoMain;
+export default withTodoApp(TodoMain);

@@ -1,12 +1,18 @@
 import React from 'react';
 import './navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle, faChevronDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
-const Navbar = () => {
+import { withTodoApp } from '../hoc/withTodoApp';
+const Navbar = ({todoApp}) => {
+  const {toggleNavbar} = todoApp;
+
   return (
     <div className="nav-bar bg-red-500 clearfix"> 
-      <div className="nav-item px-8 float-left">TODO APP</div>
+      <div className="nav-item px-4 float-left hamburger" onClick={toggleNavbar}>
+        <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
+      </div>
+      <div className="nav-item pl-4 float-left">TODO APP</div>
       <div className="nav-item nav-right px-8 float-right">
         <Link to="/">
           <div className="px-4">Menu 1 </div>
@@ -23,4 +29,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar;
+export default withTodoApp(Navbar);

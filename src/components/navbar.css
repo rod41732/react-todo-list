@@ -7,6 +7,10 @@
   line-height: 60px;
 }
 
+.nav-bar .hamburger {
+  cursor: pointer;
+}
+
 .nav-right {
   display: flex;
   flex-direction: row;
