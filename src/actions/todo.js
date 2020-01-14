@@ -7,17 +7,17 @@ export function addTodo(todo) {
   };
 }
 
-export function removeTodo(labelId) {
+export function removeTodo(todoId) {
   return {
     type: 'REMOVE_TODO',
-    labelId,
+    todoId,
   };
 }
 
-export function toggleTodo(labelId) {
+export function toggleTodo(todoId) {
   return {
     type: 'TOGGLE_TODO',
-    labelId,
+    todoId,
   };
 }
 

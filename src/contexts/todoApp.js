@@ -54,6 +54,7 @@ const todosReducer = (state, action) => {
         return todo;
       });
     case actionTypes.REMOVE_TODO:
+      console.log(state, todoId)
       return state.filter((todo) => todo.id !== todoId);
     case actionTypes.TOGGLE_TODO:
       return state.map((todo) => {
