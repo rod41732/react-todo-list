@@ -6,6 +6,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import classnames from 'classnames';
 import { UrgencyIcon } from './common';
 
+let id = 2;
+
 const AddTodo = ({todoApp}) => {
   const [text, setText] = useState("")
   const [urgency, setUrgency] = useState(0);
@@ -39,6 +41,7 @@ const AddTodo = ({todoApp}) => {
       text,
       urgency,
       label: selectedLabel,
+      id: ++id,
     })}> 
       <FontAwesomeIcon icon={faPlus}/>
      </button>

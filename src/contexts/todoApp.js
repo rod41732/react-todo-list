@@ -18,13 +18,20 @@ const labelsReducer = (state, action) => {
     case actionTypes.REMOVE_LABEL:
       return state.filter(label => label.id !== labelId);
     case actionTypes.UPDATE_LABEL:
-      return state.map((label) => {
-        if (label.id === labelId) return {
-          ...label,
-          ...action.label,
+      console.log('update label', action);
+      const newlabels = state.map((label) => {
+        if (label.id === labelId) {
+          const res = {
+            ...label,
+            ...action.label,
+          };
+          console.log('new label = ', res)
+          return res;
         }
         return label;
       });
+      console.log("NL", newlabels);
+      return newlabels;
     default:
       return state;
   }
@@ -177,7 +184,7 @@ export const TodoContextProvider = ({children}) => {
       dispatchExpanded,
       selectedLabel,
       dispatchSelectedLabel,
-      labels: fakeData.labels,
+      labels,
       // dispatchLabels,
       ...boundAction,  
     }

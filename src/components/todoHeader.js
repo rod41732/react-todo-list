@@ -10,14 +10,18 @@ const TodoHeader = ({todoApp}) => {
     selectedLabel
   } = todoApp;
 
+  const {label, updateLabelName, isUpdatable, reminderCount} = useLabel(selectedLabel);
 
-  const {label, updateLabelName, selectThisLabel} = useLabel(selectedLabel);
-  console.log(label)
+  const handleInputChange = (evt) => {
+    updateLabelName(evt.target.value);
+  }
+
+  console.log("current rendered label = ", label)
 
   return <div className='todo-header p-2'>
     <div>
-      # {label.id}
-      <input value={label.name} readOnly className="m-4 p-2"/>
+      ({reminderCount}) # {label.id}
+      <input value={label.name} onChange={handleInputChange} readOnly={!isUpdatable} className="m-4 p-2"/>
     </div>
     <a href='#'>
       <FontAwesomeIcon icon={faEllipsisH}/>
