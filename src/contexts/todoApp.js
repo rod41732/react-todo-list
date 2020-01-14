@@ -18,19 +18,16 @@ const labelsReducer = (state, action) => {
     case actionTypes.REMOVE_LABEL:
       return state.filter(label => label.id !== labelId);
     case actionTypes.UPDATE_LABEL:
-      console.log('update label', action);
       const newlabels = state.map((label) => {
         if (label.id === labelId) {
           const res = {
             ...label,
             ...action.label,
           };
-          console.log('new label = ', res)
           return res;
         }
         return label;
       });
-      console.log("NL", newlabels);
       return newlabels;
     default:
       return state;
@@ -38,7 +35,6 @@ const labelsReducer = (state, action) => {
 }
 
 const todosReducer = (state, action) => {
-  console.log('action', action);
   const {todoId, text} = action;
   switch (action.type) {
     case actionTypes.ADD_TODO:
@@ -58,7 +54,7 @@ const todosReducer = (state, action) => {
         return todo;
       });
     case actionTypes.REMOVE_TODO:
-      return state.filter((todo) => todo.id != todoId);
+      return state.filter((todo) => todo.id !== todoId);
     case actionTypes.TOGGLE_TODO:
       return state.map((todo) => {
         if (todo.id == todoId) {

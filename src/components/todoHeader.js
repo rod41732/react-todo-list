@@ -16,8 +16,6 @@ const TodoHeader = ({todoApp}) => {
     updateLabelName(evt.target.value);
   }
 
-  console.log("current rendered label = ", label)
-
   return <div className='todo-header p-2'>
     <div>
       ({reminderCount}) # {label.id}

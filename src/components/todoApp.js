@@ -5,7 +5,6 @@ import Sidebar from './sidebar';
 import { useRouteMatch } from 'react-router-dom';
 
 const TodoApp = ({match: { params }}) => {
-  console.log(params);
   useRouteMatch("")
   return (
   <div className="grid-app">

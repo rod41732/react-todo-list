@@ -21,14 +21,14 @@ const TodoItem = withTodoApp(({todoApp, todo, index}) => {
   return (
     <div key={todo.id } className="todo-item">
       <div className="p-4">
-        <input type="checkbox" onClick={() => toggleTodo(index)} value={completed}></input>
+        <input type="checkbox" onClick={() => toggleTodo(id)} value={completed}></input>
       </div>
       <div className="p-4"> {name} {id} - {completed ? "[completed]" : ""}</div>
       <div className="p-4 todo-text">  {text} </div>
       <div className="p-4">
         <UrgencyIcon urgency={urgency} />
       </div>
-      <button className="p-4 text-red-600 remove-btn" onClick={() => removeTodo(index)}>
+      <button className="p-4 text-red-600 remove-btn" onClick={() => removeTodo(id)}>
         <FontAwesomeIcon icon={faTimesCircle} />
       </button>
     </div>
@@ -41,7 +41,7 @@ const TodoList = ({ todoApp }) => {
   return <div className="todo-list pb-8">
     {
       filterTodo(todos, selectedLabel).map((todo, index) => {
-        return TodoItem({todo, index});
+        return <TodoItem todo={todo} index={index}/>
       })
     }
   </div>

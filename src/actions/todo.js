@@ -7,17 +7,17 @@ export function addTodo(todo) {
   };
 }
 
-export function removeTodo(index) {
+export function removeTodo(labelId) {
   return {
     type: 'REMOVE_TODO',
-    index,
+    labelId,
   };
 }
 
-export function toggleTodo(index) {
+export function toggleTodo(labelId) {
   return {
     type: 'TOGGLE_TODO',
-    index,
+    labelId,
   };
 }
 
@@ -44,7 +44,6 @@ export function updateLabel(labelId, label) {
 }
 
 export function selectLabel(labelId) {
-  console.log('selected', labelId)
   return {
     type: actionTypes.SELECT_LABEL,
     labelId,
