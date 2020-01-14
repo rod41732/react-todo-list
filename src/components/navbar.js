@@ -8,10 +8,10 @@ const Navbar = () => {
     <div className="nav-bar bg-red-500 clearfix"> 
       <div className="nav-item px-8 float-left">TODO APP</div>
       <div className="nav-item nav-right px-8 float-right">
-        <Link to="foo1">
+        <Link to="/">
           <div className="px-4">Menu 1 </div>
         </Link>
-        <Link>
+        <Link to="/account">
           <div className="icon-wrapper">
             <FontAwesomeIcon icon={faUserCircle} />
           </div>

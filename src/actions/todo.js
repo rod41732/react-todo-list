@@ -1,7 +1,7 @@
-export function addTodo(text) {
+export function addTodo(todo) {
   return {
     type: 'ADD_TODO',
-    text,
+    todo,
   };
 }
 
@@ -19,15 +19,15 @@ export function toggleTodo(index) {
   };
 }
 
-export function addTodoWithDelay(text) {
-  return (dispatch, currentState) => {
-    console.log('current state =', currentState)
-    dispatch(addTodo("initial -> " + text));
-    setTimeout(() => {
-      dispatch(addTodo("delayed -> " + text))
-    }, 1000);
-  }
-}
+// export function addTodoWithDelay(text) {
+//   return (dispatch, currentState) => {
+//     console.log('current state =', currentState)
+//     dispatch(addTodo("initial -> " + text));
+//     setTimeout(() => {
+//       dispatch(addTodo("delayed -> " + text))
+//     }, 1000);
+//   }
+// }
 
 export function filterByCompleteness(filter) {
   return {

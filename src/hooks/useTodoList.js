@@ -2,13 +2,31 @@ import { useReducer } from 'react';
 import * as actions from '../actions/todo';
 import * as actionTypes from '../actions/todo.types';
 
+const labelsReducer = (state, action) => {
+  switch (action.type) {
+    case actionTypes.ADD_LABEL:
+      return [
+        ...state,
+        {
+          text: action.text,
+          completed: false,
+        }
+      ];
+    case actionTypes.REMOVE_LABEL:
+      return state.filter(label => label.name == action.name);
+    default:
+      return state;
+  }
+}
+
+
 const todosReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.ADD_TODO:
       return [
         ...state,
         {
-          text: action.text,
+          ...action.todo,
           completed: false,
         }
       ];
@@ -32,12 +50,30 @@ const todosReducer = (state, action) => {
 
 
 
-
+const fakeData = {
+  todos: [{
+    text: "Helloworld!!",
+    completed: false,
+    label: "programming",
+  },{
+    text: "Hey react",
+    completed: false,
+    label: "general",
+  }],
+  labels: [{
+    name: 'programming',
+  }, {
+    name:" general",
+  }, {
+    name: "doge",
+  }],
+};
 
 
 
 const useTodoList = () => {
-  const [todos, dispatch] = useReducer(todosReducer, []);
+  const [todos, dispatch] = useReducer(todosReducer, fakeData.todos);
+  // const [labels, dispatchLabels] = useReducer(labelsReducer, fakeData.labels);
   const wrapAction = (actionCreator) => (...args) => dispatch(actionCreator(...args));
   const wrapFunction = (func) => (...args) => func(...args)(dispatch, todos);
 
@@ -57,6 +93,9 @@ const useTodoList = () => {
   return {
     todos, 
     dispatch,
+    selectedLabel: "programming",
+    labels: fakeData.labels,
+    // dispatchLabels,
     ...boundAction,  
   };
 }

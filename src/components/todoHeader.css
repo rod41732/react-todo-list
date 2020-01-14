@@ -1,0 +1,22 @@
+.todo-header {
+  /* height: 60px; */
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between; 
+  align-content: stretch;
+}
+
+.todo-header > input {
+  border: 2px solid red;
+  flex-grow: 0;
+}
+
+.todo-header > a {
+  align-self: center;
+}
+
+.todo-header > a >  svg {
+  font-size: 24px;
+}

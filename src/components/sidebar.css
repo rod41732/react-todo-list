@@ -7,13 +7,22 @@
   gap: 1em;
 }
 
-.side-bar > .labels-list {
-  overflow-y: auto;
+/* TITLE */
+.side-bar > .labels-list  {
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
 }
-
-.side-bar > .labels-list > p {
+.side-bar > .labels-list > p { 
   position: sticky;
   top: 0;
+}
+
+.side-bar > .labels-list > .label-item > * {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .side-bar .divider {

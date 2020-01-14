@@ -1,0 +1,13 @@
+.add-todo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; 
+}
+
+.add-todo > .todo-input {
+  flex-grow: 1;
+}
+
+.border-icon {
+  border: 2px solid #aaa;
+}

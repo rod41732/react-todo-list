@@ -7,7 +7,8 @@ import { useRouteMatch } from 'react-router-dom';
 const TodoApp = ({match: { params }}) => {
   console.log(params);
   useRouteMatch("")
-  return (<div className="grid-app">
+  return (
+  <div className="grid-app">
     <Navbar/>
     <Sidebar className="side-bar"/>
     <TodoMain/>
