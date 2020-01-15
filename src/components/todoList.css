@@ -1,11 +1,10 @@
-.todo-list {
-  max-width: 100%;
-  overflow-y: auto;
-}
 .todo-item {
-  /* max-width: 100%; */
   display: grid;
-  grid-template-columns: min-content max-content 1fr min-content min-content;
+  grid-template-columns: min-content max-content minmax(0, 1fr) min-content min-content;
+}
+
+.todo-item > .todo-text {
+  word-wrap: break-word;
 }
 
 .todo-item  > .remove-btn {
