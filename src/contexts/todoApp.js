@@ -1,13 +1,18 @@
 import React from 'react';
-import { useReducer } from 'react'; 
+import { useReducer, useState } from 'react'; 
 import * as actions from '../actions/todo';
 import * as actionTypes from '../actions/todo.types';
+import fake from '../mock/fakedata.json';
+import request from 'superagent';
+import {apiRoot} from '../actions/todo';
 
 export const TodoContext  = React.createContext({});
 
 const labelsReducer = (state, action) => {
   const {labelId} = action;
   switch (action.type) {
+    case actionTypes.INIT_LABEL:
+      return action.labels;
     case actionTypes.ADD_LABEL:
       return [
         ...state,
@@ -35,8 +40,10 @@ const labelsReducer = (state, action) => {
 }
 
 const todosReducer = (state, action) => {
-  const {todoId, text} = action;
+  const {todoId} = action;
   switch (action.type) {
+    case actionTypes.INIT_TODO:
+      return action.todos;
     case actionTypes.ADD_TODO:
       return [
         ...state,
@@ -45,16 +52,16 @@ const todosReducer = (state, action) => {
           completed: false,
         }
       ];
-    case actionTypes.UPDATE_TODO_TEXT:
-      return state.map((todo) => {
+    case actionTypes.UPDATE_TODO:
+
+    return state.map((todo) => {
         if (todo.id === todoId) return {
           ...todo,
-          text,
+          ...action.todo,
         }
         return todo;
       });
     case actionTypes.REMOVE_TODO:
-      console.log(state, todoId)
       return state.filter((todo) => todo.id !== todoId);
     case actionTypes.TOGGLE_TODO:
       return state.map((todo) => {
@@ -95,53 +102,59 @@ const selectedLabelReducer = (selected, action) => {
 }
 
 
-const fakeData = {
-  todos: [{
-    id: 1,
-    text: "Helloworld!!",
-    completed: false,
-    label: "programming",
-  },{
-    id: 2,
-    text: "Hey react",
-    completed: false,
-    label: "general",
-  }],
-  labels: [{
-    id: 1,
-    name: 'programming',
-  }, {
-    id: 2,
-    name:" general",
-  }, {
-    id: 3,
-    name: "doge",
-  }],
+const initialState = {
   expanded: {
-    mobile: false,
     desktop: false,
+    mobile: false,
   },
   selectedLabel: -1,
-};
-
+}
 
 
 
 
 export const TodoContextProvider = ({children}) => {
-  
-  const todoReducerPair = useReducer(todosReducer, fakeData.todos);
+
+  const [init, setInit] = useState({hasInit: false, initing: false});
+
+  const todoReducerPair = useReducer(todosReducer, []);
   const [todos, dispatchTodos] = todoReducerPair;
 
-  const labelReducerPair = useReducer(labelsReducer, fakeData.labels);
+  const labelReducerPair = useReducer(labelsReducer, []);
   const [labels, dispatchLabels] = labelReducerPair;
 
-  const expandedReducerPair = useReducer(expandedReducer, fakeData.expanded);
+  const expandedReducerPair = useReducer(expandedReducer, initialState.expanded);
   const [expanded, dispatchExpanded] = expandedReducerPair;
 
-  const selectedLabelReducerPair = useReducer(selectedLabelReducer, fakeData.selectedLabel);
+  const selectedLabelReducerPair = useReducer(selectedLabelReducer, initialState.selectedLabel);
   const [selectedLabel, dispatchSelectedLabel] = selectedLabelReducerPair;
 
+  const { hasInit, initing} = init;
+  if (!hasInit && !initing) {
+    (async () => {
+      setInit({
+        hasInit: false,
+        initing: true,
+      })
+      try {
+        const todos = JSON.parse((await request.get(`${apiRoot}/todos`)).text);
+        const labels = JSON.parse((await request.get(`${apiRoot}/labels`)).text);
+        dispatchTodos(actions.initTodos(todos));
+        dispatchLabels(actions.initLabels(labels));
+        setInit({
+          hasInit: true,
+          initing: true,
+        })
+      } catch (err) {
+        console.log("error initializing app", err);
+        setInit({
+          hasInit: false,
+          initing: false,
+        })
+      }
+
+    })()
+  }
 
   const reducers = [todoReducerPair, labelReducerPair, expandedReducerPair, selectedLabelReducerPair];
 
@@ -162,6 +175,8 @@ export const TodoContextProvider = ({children}) => {
 
   for (let actName in actions) {
     const action = actions[actName]
+    if (!(action instanceof Function)) // skip other exports
+      continue;
     const tmp = action("<test action>");
     if (tmp instanceof Function) { // test return type
       boundAction[actName] = wrapFunction(action);

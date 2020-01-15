@@ -1,0 +1,41 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "text": "dogeddddds",
+      "completed": false,
+      "label": "programming",
+      "name": "hello"
+    },
+    {
+      "id": 2,
+      "text": "Hey reactdd",
+      "completed": false,
+      "label": "general"
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "name": "hello",
+      "id": 5
+    }
+  ],
+  "labels": [
+    {
+      "id": 1,
+      "name": "programming"
+    },
+    {
+      "id": 2,
+      "name": " general"
+    },
+    {
+      "id": 3,
+      "name": "doge"
+    }
+  ]
+}

@@ -1,4 +1,15 @@
 import * as actionTypes from './todo.types';
+import request from 'superagent';
+import * as _ from 'lodash';
+
+export const apiRoot = 'http://localhost:3001';
+
+export function initTodos(todos) {
+  return{
+    type: actionTypes.INIT_TODO,
+    todos,
+  }
+}
 
 export function addTodo(todo) {
   return {
@@ -28,10 +39,36 @@ export function toggleNavbar() {
 }
 
 export function updateTodoText(todoId, text) {
+  return (dispatch, currentTodo) => {
+    updateTodo(todoId, {text: text + "(...)"})(dispatch, currentTodo); // fake dispatch quick message
+    request.patch(`${apiRoot}/todos/${todoId}`)
+    .send({text})
+    .then((res) => {
+      updateTodo(todoId, JSON.parse(res.text))(dispatch, currentTodo);
+    })
+  }
+}
+
+export function updateTodoUrgency(todoId, urgency) {
+  return updateTodo(todoId, {urgency})
+}
+
+export function updateTodo(todoId, todo) {
+  console.log("update todo", todoId, todo);
+  return (dispatch, currentTodo) => {
+    dispatch({
+      type: actionTypes.UPDATE_TODO,
+      todoId,
+      todo,
+    });
+  }
+}
+
+
+export function initLabels(labels) {
   return {
-    type: actionTypes.UPDATE_TODO_TEXT,
-    todoId,
-    text,
+    type: actionTypes.INIT_LABEL,
+    labels,
   }
 }
 
