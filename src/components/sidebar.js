@@ -2,8 +2,6 @@ import React, { useContext } from 'react'
 import { withTodoApp } from '../hoc/withTodoApp'
 import './sidebar.css';
 import classnames from 'classnames';
-import { Link } from 'react-router-dom';
-import { updateLabel } from '../actions/todo';
 import { useLabel } from '../contexts/useLabel';
 import { TodoContext } from '../contexts/todoApp';
 
@@ -29,7 +27,7 @@ const SideBarItem = ({left, right, selected, isLast, target, pkey, ...otherProps
 }
 
 const LabelSelector = ({labelId, isLast, ...otherProps}) => {
-  const {selectLabel, selectedLabel} = useContext(TodoContext);
+  const {actions:{selectLabel, selectedLabel}} = useContext(TodoContext);
   const {label, reminderCount} = useLabel(labelId);
   return <SideBarItem onClick={() => selectLabel(labelId)}
     left={label.name} right={reminderCount}
@@ -41,11 +39,10 @@ const LabelSelector = ({labelId, isLast, ...otherProps}) => {
 
 const Sidebar = ({ todoApp }) => {
   const {
-    labels,
-    selectedLabel,
-    expanded: {mobile},
-    selectLabel,
-    updateLabel,
+    state: {
+      labels,
+      expanded: {mobile},
+    }
   } = todoApp;
   return <div className={
     classnames({

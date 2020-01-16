@@ -7,7 +7,7 @@ import { useLabel } from '../contexts/useLabel';
 const TodoHeader = ({todoApp}) => {
   // const [header, setHeader] = 
   const {
-    selectedLabel
+    state: {selectedLabel}
   } = todoApp;
 
   const {label, updateLabelName, isUpdatable, reminderCount} = useLabel(selectedLabel);

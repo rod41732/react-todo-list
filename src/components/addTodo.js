@@ -6,13 +6,12 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import classnames from 'classnames';
 import { UrgencyIcon } from './common';
 
-let id = 2;
 
 const AddTodo = ({todoApp}) => {
   const [text, setText] = useState("")
   const [urgency, setUrgency] = useState(0);
   
-  let {selectedLabel} = todoApp;
+  let {state: {selectedLabel}, methods: {addTodo}} = todoApp;
   selectedLabel = Math.max(selectedLabel, 0); // if selecting 'All -1 /Reminder -2, add to 'no catergory'
 
   const handleTextChange = (evt) => {
@@ -37,11 +36,10 @@ const AddTodo = ({todoApp}) => {
     } onClick={toggleUrgency}> 
       <UrgencyIcon urgency={urgency}/>
      </button>
-    <button className="px-4 py-2" onClick={() => todoApp.addTodo({
+    <button className="px-4 py-2" onClick={() => addTodo({
       text,
       urgency,
       label: selectedLabel,
-      id: ++id,
     })}> 
       <FontAwesomeIcon icon={faPlus}/>
      </button>

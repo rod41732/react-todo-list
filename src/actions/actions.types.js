@@ -13,5 +13,8 @@ export const REMOVE_LABEL = 'REMOVE_LABEL';
 export const UPDATE_LABEL = 'UPDATE_LABEL';
 export const SELECT_LABEL = 'SELECT_LABEL';
 
-
 export const TOGGLE_NAVBAR = 'TOGGLE_NAVBAR';
+
+export const INIT_START = 'INIT_START';
+export const INIT_SUCCESS = 'INIT_SUCCESS';
+export const INIT_FAIL = 'INIT_FAIL';

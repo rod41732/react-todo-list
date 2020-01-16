@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { withTodoApp } from '../hoc/withTodoApp';
 import './todoList.css';
 import { UrgencyIcon } from './common';
@@ -16,18 +16,28 @@ const filterTodo = (todos, labelId) => {
 }
 
 const TodoItem = withTodoApp(({todoApp, todo}) => {
-  const { toggleTodo, removeTodo, updateTodoText, updateTodoUrgency} = todoApp;
+  const { actions: {toggleTodo, removeTodo}, methods: {updateTodo}} = todoApp;
   const { text, urgency = 0, completed, label, id} = todo;
   const {label: {name}} = useLabel(label); // label name
   const [editing, setEditing] = useState(false);
   const inputRef = useRef();
-
+  
   const [localText, setLocalText] = useState(text);
-  const handleChange = useRef(_.debounce(() => {
-    console.log("handle change");
-    updateTodoText(id, inputRef.current.value);  
-  }, 100))
-  console.log(handleChange);  
+  const [localUrgency, setLocalUrgency] = useState(urgency);
+  
+  useEffect(() => {
+    const handle = setTimeout(() => {
+      if (localText != text || localUrgency != urgency) {
+        updateTodo(id, {
+          text: localText,
+          urgency: localUrgency,
+        })
+      } 
+    }, 200);
+    return () => {
+      clearTimeout(handle);
+    };
+  });
 
   return (
     <div key={todo.id } className={
@@ -40,7 +50,7 @@ const TodoItem = withTodoApp(({todoApp, todo}) => {
         <input type="checkbox" onClick={() => toggleTodo(id)} value={completed}></input>
       </div>
       <div className="p-4"> {name} {id} - {completed ? "[completed]" : ""}</div>
-      <div className={
+      <p className={
         classNames({
           "p-4 todo-text": true,
           hidden: editing,
@@ -51,7 +61,7 @@ const TodoItem = withTodoApp(({todoApp, todo}) => {
         setTimeout(() => {
           inputRef.current.focus();
         }, 1); 
-      }}>  {text} </div>
+      }}>  {text} </p>
       <input ref={inputRef} className={
         classNames({
           "p-4 todo-text": true,
@@ -59,13 +69,11 @@ const TodoItem = withTodoApp(({todoApp, todo}) => {
         })
       } onBlur={() => setEditing(false)} value={localText} onChange={(evt) => {
         setLocalText(evt.target.value);
-        handleChange.current();
       }}/>
       <button className="p-4 remove-btn" onClick={() => {
-        // console.log('change', (urgency+1)%4);
-        updateTodoUrgency(id, (urgency+1)%4);
+        setLocalUrgency((localUrgency+1)%4);
       }} >
-        <UrgencyIcon urgency={urgency}/>
+        <UrgencyIcon urgency={localUrgency}/>
       </button>
       <button className="p-4 text-red-600 remove-btn" onClick={() => removeTodo(id)}>
         <FontAwesomeIcon icon={faTimesCircle} />
@@ -76,11 +84,11 @@ const TodoItem = withTodoApp(({todoApp, todo}) => {
 
 // params is used for accesing params in URL
 const TodoList = ({ todoApp }) => {
-  const { removeTodo, toggleTodo, todos, selectedLabel } = todoApp;
+  const { state: {todos, selectedLabel} } = todoApp;
   return <div className="todo-list pb-8">
     {
       filterTodo(todos, selectedLabel).map((todo, index) => {
-        return <TodoItem todo={todo} index={index}/>
+        return <TodoItem todo={todo} key={todo.id}/>
       })
     }
   </div>

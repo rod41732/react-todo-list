@@ -8,8 +8,8 @@ const hardCodedNames = {
 
 export const useLabel = (labelId) => {
   const todoApp = useContext(TodoContext);
-  const {todos, updateLabel, selectLabel} = todoApp;
-  const matchedLabel = todoApp.labels.filter(label => label.id == labelId);
+  const {state: {todos, labels}, actions: {updateLabel, selectLabel}} = todoApp;
+  const matchedLabel = labels.filter(label => label.id == labelId);
   let label, selectThisLabel, updateLabelName, reminderCount;
 
   switch (labelId) {
@@ -29,9 +29,9 @@ export const useLabel = (labelId) => {
     updateLabelName = () => {throw Error("You can't update this label name")};
   } else {
     label = matchedLabel[0];
-    updateLabelName = (text) => todoApp.updateLabel(labelId, {name: text});
+    updateLabelName = (text) => updateLabel(labelId, {name: text});
   }
-  selectThisLabel = () => todoApp.selectLabel(labelId);
+  selectThisLabel = () => selectLabel(labelId);
 
 
   return {

@@ -3,8 +3,6 @@ import { NavLink, useParams } from 'react-router-dom';
 const filterTypes = ['SHOW_ALL', 'SHOW_COMPLETE', 'SHOW_TODO'];
 
 const TodoFilter = () => {
-  const {filter} = useParams();
-  
   return <div>
     {filter}
     {

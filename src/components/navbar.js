@@ -5,7 +5,7 @@ import { faUserCircle, faChevronDown, faBars } from "@fortawesome/free-solid-svg
 import { Link } from 'react-router-dom';
 import { withTodoApp } from '../hoc/withTodoApp';
 const Navbar = ({todoApp}) => {
-  const {toggleNavbar} = todoApp;
+  const {actions: {toggleNavbar}} = todoApp;
 
   return (
     <div className="nav-bar bg-red-500 clearfix"> 

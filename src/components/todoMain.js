@@ -7,7 +7,7 @@ import { withTodoApp } from '../hoc/withTodoApp';
 import classnames from 'classnames';
 
 const TodoMain = ({todoApp}) => {
-  const {expanded: {desktop}} = todoApp;
+  const {state: {expanded: {desktop}}} = todoApp;
   return <div className={
     classnames({
       "todo-main p-4": true,

@@ -2,10 +2,18 @@ import React from 'react';
 import TodoMain from './todoMain';
 import Navbar from './navbar';
 import Sidebar from './sidebar';
-import { useRouteMatch } from 'react-router-dom';
+import { withTodoApp } from '../hoc/withTodoApp';
 
-const TodoApp = ({match: { params }}) => {
-  useRouteMatch("")
+const TodoApp = ({todoApp}) => {
+  const {state, state: { init }, methods: {initData}} = todoApp;
+  console.log("-->", init);
+  const {finished, inProgress} = init;
+  console.log(!inProgress, !finished);
+  if (!inProgress && !finished) {
+    console.dir(todoApp.methods)
+    initData();
+  }
+
   return (
   <div className="grid-app">
     <Navbar/>
@@ -14,4 +22,4 @@ const TodoApp = ({match: { params }}) => {
   </div>);
 } 
 
-export default TodoApp;
+export default withTodoApp(TodoApp);
