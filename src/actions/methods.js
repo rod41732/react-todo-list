@@ -38,6 +38,28 @@ export const updateTodo = (todoId, todo) => {
   }
 }
 
+export const updateLabel = (labelId, labelData) => {
+  return (dispatch) => {
+    request.patch(`${apiRoot}/labels/${labelId}`)
+      .send(labelData)
+      .then((res) => {
+        dispatch(actions.updateLabel(labelId, JSON.parse(res.text)))
+      })
+      .catch(console.err);
+  }
+}
+
+export const newList = () => {
+  return (dispatch) => {
+    request.post(`${apiRoot}/labels`)
+      .send({name: "New List"})
+      .then((res) => {
+        dispatch(actions.addLabel(JSON.parse(res.text)))
+      })
+      .catch(console.err)
+  }
+}
+
 export const initData = () => {
   return async (dispatch) => {
     dispatch(actions.initStarted());

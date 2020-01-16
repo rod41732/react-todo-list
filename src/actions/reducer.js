@@ -7,6 +7,7 @@ const labels = (state, action) => {
     case actionTypes.INIT_LABEL:
       return action.labels;
     case actionTypes.ADD_LABEL:
+      console.log("addlabel", action.label)
       return [
         ...state,
         {

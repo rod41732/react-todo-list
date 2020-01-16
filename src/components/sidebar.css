@@ -32,6 +32,12 @@
   top: 0;
 }
 
+.side-bar > .labels-list > .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;;
+}
+
 .label-item > * {
   width: 100%;
   display: flex;

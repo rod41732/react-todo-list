@@ -4,6 +4,8 @@ import './sidebar.css';
 import classnames from 'classnames';
 import { useLabel } from '../contexts/useLabel';
 import { TodoContext } from '../contexts/todoApp';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 const SideBarItem = ({left, right, selected, isLast, target, pkey, ...otherProps}) => {
@@ -42,7 +44,8 @@ const Sidebar = ({ todoApp }) => {
     state: {
       labels,
       expanded: {mobile},
-    }
+    },
+    methods: {newList}
   } = todoApp;
   return <div className={
     classnames({
@@ -56,7 +59,10 @@ const Sidebar = ({ todoApp }) => {
     </div>
 
     <div className="labels-list">
-      <p className="py-2 bg-red-200 shadow-lg"> LISTS </p>
+      <div className="header">
+        <p className="p-2"> LISTS </p>
+        <button className="p-2" onClick={newList}> <FontAwesomeIcon icon={faPlus}/></button>
+      </div>
       {
         labels.map((label, idx) => {
           return <LabelSelector key={idx} labelId={label.id} isLast={idx === labels.length}/>

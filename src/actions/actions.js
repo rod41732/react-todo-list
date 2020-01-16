@@ -48,6 +48,13 @@ export const initLabels = (labels) => {
   }
 }
 
+export const addLabel = (label) => {
+  return {
+    type: actionTypes.ADD_LABEL,
+    label,
+  }
+}
+
 export const updateLabel = (labelId, label) => {
   return {
     type: actionTypes.UPDATE_LABEL,

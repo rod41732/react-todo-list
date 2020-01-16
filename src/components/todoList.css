@@ -1,3 +1,7 @@
+.todo-list {
+  overflow-y: auto;
+}
+
 .todo-item {
   display: grid;
   grid-template-columns: min-content max-content minmax(0, 1fr) min-content min-content;

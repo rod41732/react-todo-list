@@ -16,7 +16,7 @@ const filterTodo = (todos, labelId) => {
 }
 
 const TodoItem = withTodoApp(({todoApp, todo}) => {
-  const { actions: {toggleTodo, removeTodo}, methods: {updateTodo}} = todoApp;
+  const { actions: {toggleTodo}, methods: {updateTodo, removeTodo}} = todoApp;
   const { text, urgency = 0, completed, label, id} = todo;
   const {label: {name}} = useLabel(label); // label name
   const [editing, setEditing] = useState(false);
@@ -24,16 +24,22 @@ const TodoItem = withTodoApp(({todoApp, todo}) => {
   
   const [localText, setLocalText] = useState(text);
   const [localUrgency, setLocalUrgency] = useState(urgency);
+  const [localCompleteness, setLocalCompleteness] = useState(completed);
+
+  if (id == 1) {
+    console.log("global", completed, "local", localCompleteness)
+  }
   
   useEffect(() => {
     const handle = setTimeout(() => {
-      if (localText != text || localUrgency != urgency) {
+      if (localText != text || localUrgency != urgency || localCompleteness != completed) {
         updateTodo(id, {
           text: localText,
           urgency: localUrgency,
+          completed: localCompleteness
         })
       } 
-    }, 200);
+    }, 300);
     return () => {
       clearTimeout(handle);
     };
@@ -47,9 +53,9 @@ const TodoItem = withTodoApp(({todoApp, todo}) => {
       })
     }>
       <div className="p-4">
-        <input type="checkbox" onClick={() => toggleTodo(id)} value={completed}></input>
+        <input type="checkbox" onClick={() => setLocalCompleteness(!localCompleteness)} checked={localCompleteness}></input>
       </div>
-      <div className="p-4"> {name} {id} - {completed ? "[completed]" : ""}</div>
+      <div className="p-4"> {name} {id} - {localCompleteness ? "[V]" : ""}</div>
       <p className={
         classNames({
           "p-4 todo-text": true,
