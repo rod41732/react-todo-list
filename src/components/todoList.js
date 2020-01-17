@@ -10,9 +10,9 @@ import classNames from 'classnames';
 import * as _ from 'lodash';
 
 const filterTodo = (todos, labelId) => {
-  if (labelId == -1) return todos;
-  else if (labelId == -2) return todos.filter(todo => todo.urgency);
-  return todos.filter(todo => todo.label == labelId);
+  if (labelId === -1) return todos;
+  else if (labelId === -2) return todos.filter(todo => todo.urgency);
+  return todos.filter(todo => todo.label === labelId);
 }
 
 const TodoItem = withTodoApp(({todoApp, todo}) => {
@@ -25,14 +25,10 @@ const TodoItem = withTodoApp(({todoApp, todo}) => {
   const [localText, setLocalText] = useState(text);
   const [localUrgency, setLocalUrgency] = useState(urgency);
   const [localCompleteness, setLocalCompleteness] = useState(completed);
-
-  if (id == 1) {
-    console.log("global", completed, "local", localCompleteness)
-  }
   
   useEffect(() => {
     const handle = setTimeout(() => {
-      if (localText != text || localUrgency != urgency || localCompleteness != completed) {
+      if (localText !== text || localUrgency !== urgency || localCompleteness !== completed) {
         updateTodo(id, {
           text: localText,
           urgency: localUrgency,

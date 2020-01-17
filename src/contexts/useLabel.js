@@ -9,7 +9,7 @@ const hardCodedNames = {
 export const useLabel = (labelId) => {
   const todoApp = useContext(TodoContext);
   const {state: {todos, labels}, actions: {selectLabel}, methods: {updateLabel}} = todoApp;
-  const matchedLabel = labels.filter(label => label.id == labelId);
+  const matchedLabel = labels.filter(label => label.id === labelId);
   let label, selectThisLabel, updateLabelName, reminderCount;
 
   switch (labelId) {
@@ -18,7 +18,7 @@ export const useLabel = (labelId) => {
     case -2:
       reminderCount = todos.filter(todo => todo.urgency > 0).length; break;
     default:
-      reminderCount = todos.filter(todo => todo.label == labelId && todo.urgency > 0).length;
+      reminderCount = todos.filter(todo => todo.label === labelId && todo.urgency > 0).length;
   }
 
   // some special ID

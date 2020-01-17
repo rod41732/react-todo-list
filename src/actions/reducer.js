@@ -7,7 +7,6 @@ const labels = (state, action) => {
     case actionTypes.INIT_LABEL:
       return action.labels;
     case actionTypes.ADD_LABEL:
-      console.log("addlabel", action.label)
       return [
         ...state,
         {
@@ -47,7 +46,6 @@ const todos = (state, action) => {
         }
       ];
     case actionTypes.UPDATE_TODO:
-      // console.log("-----------", todoId);
       return state.map((todo) => {
         if (todo.id === todoId) return {
           ...todo,
@@ -59,7 +57,7 @@ const todos = (state, action) => {
       return state.filter((todo) => todo.id !== todoId);
     case actionTypes.TOGGLE_TODO:
       return state.map((todo) => {
-        if (todo.id == todoId) {
+        if (todo.id === todoId) {
           return {
             ...todo,
             completed: !todo.completed,
@@ -96,7 +94,6 @@ const selectedLabel = (selected, action) => {
 }
 
 const init = (init, action) => {
-  // console.log(init);
   switch (action.type) {
   case actionTypes.INIT_START:
     return {...init, inProgress: true, error: null};

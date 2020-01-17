@@ -16,7 +16,7 @@ const TodoHeader = ({todoApp}) => {
   
   // handle when changing list
   const localId = useRef(id);
-  if (localId.current != id) {
+  if (localId.current !== id) {
     localId.current = id;
     setLocalName(name);
   }

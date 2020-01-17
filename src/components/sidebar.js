@@ -13,8 +13,8 @@ const SideBarItem = ({left, right, selected, isLast, target, pkey, ...otherProps
     <div className="label-item" key={pkey} {...otherProps}>
       <div className={
         classnames({
-          // "rounded-t-lg": idx == 0,
-          // "rounded-b-lg": idx == labels.length-1, 
+          // "rounded-t-lg": idx === 0,
+          // "rounded-b-lg": idx === labels.length-1, 
           "hover:bg-red-400": !selected,
           "bg-red-600": selected,
           "p-2": true,

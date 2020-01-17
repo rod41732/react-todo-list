@@ -1,7 +1,5 @@
 import React from 'react';
-import { useReducer, useState } from 'react'; 
-import request from 'superagent';
-
+import { useReducer } from 'react'; 
 
 import * as actions from '../actions/actions';
 import * as methods from '../actions/methods';
@@ -32,7 +30,6 @@ export const TodoContextProvider = ({children}) => {
   }
 
   const wrapMethod = (method) => (...args) => {
-    console.log('method is', method);
     method(...args)(dispatch);
   }
 

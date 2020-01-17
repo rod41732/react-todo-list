@@ -7,14 +7,14 @@
 TODO:
 [X] editable todo ?
 [ ] 3 dot action -- LOW PRIORITY
-[ ] better id incrementing !! innstead of shitty ++
-    [ ] 'new' request when craeting todo 
+[X] better id incrementing !! innstead of shitty ++
+    [X] 'new' request when craeting todo 
 
 [ ] login 
   LOGIN --> LOGIN dialog, 
   LOGOUT 
   Don't allow user to use before LOGIN
 
-[-] actual data  <-- PoC
+[X] actual data  <-- PoC
 
-[ ] fix fucking 4 time dispatching (bad design)
+[X] fix fucking 4 time dispatching (bad design)

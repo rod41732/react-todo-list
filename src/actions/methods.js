@@ -3,7 +3,8 @@ import * as actions from './actions';
 import request from 'superagent';
 import * as _ from 'lodash';
 
-const apiRoot = 'http://localhost:3001';
+const apiRoot = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : '/todo-app/';
+console.log("api is at", apiRoot)
 
 export const addTodo = (todo) => {
   return (dispatch) => {
