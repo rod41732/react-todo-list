@@ -2,19 +2,9 @@ import * as actions from './actions';
 
 import request from 'superagent';
 import * as _ from 'lodash';
+import {apiRoot} from './config';
 
-const apiRoot = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : '/todo-app/api';
 console.log("api is at", apiRoot)
-
-export const addTodo = (todo) => {
-  return (dispatch) => {
-    request.post(`${apiRoot}/todos`)
-      .send(todo)
-      .then((res) => {
-        dispatch(actions.addTodo(todo));
-      })
-  }
-}
 
 export const removeTodo = (todoId) => {
   return (dispatch) => {
