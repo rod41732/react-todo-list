@@ -4,6 +4,11 @@ import Navbar from './navbar';
 import Sidebar from './sidebar';
 import { withTodoApp } from '../hoc/withTodoApp';
 
+
+const Login = () => {
+  return <div>Login</div>
+}
+
 const TodoApp = ({todoApp}) => {
   const {state: { init }, methods: {initData}} = todoApp;
   const {finished, inProgress} = init;
@@ -12,12 +17,23 @@ const TodoApp = ({todoApp}) => {
     initData();
   }
 
-  return (
-  <div className="grid-app">
-    <Navbar/>
-    <Sidebar className="side-bar"/>
-    <TodoMain/>
-  </div>);
+  const isLoggedIn = true;
+
+  if (isLoggedIn) {
+    return (
+    <div className="grid-app">
+      <Navbar/>
+      <Sidebar/>
+      <TodoMain/>
+    </div>);
+  } else {
+    return (
+      <div className="grid-app">
+        <Navbar/>
+        <Login/>
+      </div>
+    )
+  }
 } 
 
 export default withTodoApp(TodoApp);

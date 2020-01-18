@@ -129,7 +129,7 @@ const TodoList = ({ todoApp }) => {
       <h1 className="font-semibold pb-4"> Move todo # {deleteId} to trash ? </h1>
       <div> You can restore it from trash (Kapp) </div>
       <button className="float-right uppercase font-bold mx-4 py-4" onClick={onCancelDelete}> No </button>
-      <button className="float-right uppercase font-bold mx-4 py-4 text-red-400" onClick={onConfirmDelete}> Move to trash </button>
+      <button className="float-right uppercase font-bold mx-4 py-4 text-red-400" onClick={onConfirmDelete} autoFocus> Move to trash </button>
     </Modal>
     {
       filterTodo(todos, selectedLabel).map((todo, index) => {

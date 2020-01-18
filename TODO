@@ -18,3 +18,12 @@ TODO:
 [X] actual data  <-- PoC
 
 [X] fix fucking 4 time dispatching (bad design)
+
+
+
+
+Modal --isOpen
+        callbackClose
+        callbackNo
+        callBackYes
+        (children)
