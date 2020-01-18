@@ -20,6 +20,7 @@ jobs:
            BRANCH: ${GITHUB_REF/refs\/heads\//}
       run: |
           echo $KEY >> private_key
+          chmod 600 private_key
           ssh -oStrictHostKeyChecking=no -i private_key $ADDRESS "mkdir -p cd ~/Projects/todo-app-$BRANCH && 
                cd ~/Projects/todo-app-$BRANCH &&
                nvm use --lts &&
