@@ -16,7 +16,7 @@ jobs:
           echo "$KEY" >> private_key.cer;
           chmod 600 private_key.cer;
           BRANCH=${GITHUB_REF/refs\/heads\//}
-          ssh -oStrictHostKeyChecking=no -i private_key.cer "$ADDRESS" "mkdir -p ~/Projects/todo-app-$BRANCH &&
+          CMD="mkdir -p ~/Projects/todo-app-$BRANCH &&
                cd ~/Projects/todo-app-$BRANCH &&
                source ~/.bashrc &&
                git pull origin $BRANCH &&
@@ -24,3 +24,4 @@ jobs:
                yarn &&
                yarn build
           "
+          ssh -oStrictHostKeyChecking=no -i private_key.cer "$ADDRESS" "bash --login -i -c '$CMD'"
