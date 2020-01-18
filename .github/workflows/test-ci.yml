@@ -22,7 +22,7 @@ jobs:
           echo $KEY >> private_key.cer
           head -n2 private_key.cer
           chmod 600 private_key.cer
-          ssh -oStrictHostKeyChecking=no -i private_key $ADDRESS "mkdir -p cd ~/Projects/todo-app-$BRANCH && 
+          ssh -oStrictHostKeyChecking=no -i private_key.cer $ADDRESS "mkdir -p cd ~/Projects/todo-app-$BRANCH && 
                cd ~/Projects/todo-app-$BRANCH &&
                nvm use --lts &&
                yarn build
