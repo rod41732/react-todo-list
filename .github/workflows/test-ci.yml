@@ -16,10 +16,10 @@ jobs:
           echo "$KEY" >> private_key.cer;
           chmod 600 private_key.cer;
           BRANCH=${GITHUB_REF/refs\/heads\//}
-          source ~/.bashrc;
           ssh -oStrictHostKeyChecking=no -i private_key.cer "$ADDRESS" "mkdir -p cd ~/Projects/todo-app-$BRANCH &&
                cd ~/Projects/todo-app-$BRANCH &&
-               git pull origin $BRANCH $$
+               source ~/.bashrc &&
+               git pull origin $BRlsH $$
                nvm use --lts &&
                yarn &&
                yarn build
