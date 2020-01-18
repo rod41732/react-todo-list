@@ -8,22 +8,19 @@ jobs:
     runs-on: ubuntu-latest
      
     steps:
-    - name: Extract branch name
-      shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-      id: extract_branch
- 
     - name: EC2 deploy
       env:
            KEY: ${{ secrets.EC2_PRIVATE_KEY }}
            ADDRESS: ${{ secrets.EC2_CONNECTION_STRING }}
-           BRANCH: ${GITHUB_REF/refs\/heads\//}
       run: |
           echo "$KEY" >> private_key.cer;
-          cat private_key.cer;
           chmod 600 private_key.cer;
-          ssh -oStrictHostKeyChecking=no -i private_key.cer "$ADDRESS" "mkdir -p cd ~/Projects/todo-app-$BRANCH && 
+          BRANCH=${GITHUB_REF/refs\/heads\//}
+          source ~/.bashrc;
+          ssh -oStrictHostKeyChecking=no -i private_key.cer "$ADDRESS" "mkdir -p cd ~/Projects/todo-app-$BRANCH &&
                cd ~/Projects/todo-app-$BRANCH &&
+               git pull origin $BRANCH $$
                nvm use --lts &&
+               yarn &&
                yarn build
           "
