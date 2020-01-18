@@ -55,6 +55,13 @@ export const addLabel = (label) => {
   }
 }
 
+export const removeLabel = (labelId) => {
+  return {
+    type: actionTypes.REMOVE_LABEL,
+    labelId,
+  }
+}
+
 export const updateLabel = (labelId, label) => {
   return {
     type: actionTypes.UPDATE_LABEL,

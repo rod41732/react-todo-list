@@ -8,6 +8,7 @@ import { useLabel } from '../contexts/useLabel';
 import { TodoContext } from '../contexts/todoApp';
 import classNames from 'classnames';
 import * as _ from 'lodash';
+import Modal from 'react-modal';
 
 const filterTodo = (todos, labelId) => {
   if (labelId === -1) return todos;
@@ -15,8 +16,8 @@ const filterTodo = (todos, labelId) => {
   return todos.filter(todo => todo.label === labelId);
 }
 
-const TodoItem = withTodoApp(({todoApp, todo}) => {
-  const { actions: {toggleTodo}, methods: {updateTodo, removeTodo}} = todoApp;
+const TodoItem = withTodoApp(({todoApp, todo, onDelete}) => {
+  const { methods: {updateTodo}} = todoApp;
   const { text, urgency = 0, completed, label, id} = todo;
   const {label: {name}} = useLabel(label); // label name
   const [editing, setEditing] = useState(false);
@@ -77,20 +78,65 @@ const TodoItem = withTodoApp(({todoApp, todo}) => {
       }} >
         <UrgencyIcon urgency={localUrgency}/>
       </button>
-      <button className="p-4 text-red-600 remove-btn" onClick={() => removeTodo(id)}>
+      <button className="p-4 text-red-600 remove-btn" onClick={onDelete}>
         <FontAwesomeIcon icon={faTimesCircle} />
       </button>
     </div>
   );
 })
 
+const customStyles = {
+  content: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    right: "unset",
+    bottom: "unset",
+    minWidth: "300px",
+    // width: "50%",
+    // height: "50%"
+    // minWidth: "0",
+    // minHeight: "0",
+    transform: "translate(-50%, -50%)"
+  }
+}
+
+Modal.setAppElement("#root");
 // params is used for accesing params in URL
 const TodoList = ({ todoApp }) => {
-  const { state: {todos, selectedLabel} } = todoApp;
+  const { state: {todos, selectedLabel}, methods: {removeTodo}} = todoApp;
+  const [isOpen, setOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(-1);
+
+  const onConfirmDelete = () => {
+    if (deleteId !== -1) {
+      removeTodo(deleteId);
+    }
+    setOpen(false)
+  }
+  
+  const onCancelDelete = () => setOpen(false);
+
   return <div className="todo-list pb-8">
+    <Modal
+      style={customStyles}
+      isOpen={isOpen}
+      onRequestClose={() => {
+        setDeleteId(-1);
+        setOpen(false);
+      }}
+    >
+      <h1 className="font-semibold pb-4"> Move todo # {deleteId} to trash ? </h1>
+      <div> You can restore it from trash (Kapp) </div>
+      <button className="float-right uppercase font-bold mx-4 py-4" onClick={onCancelDelete}> No </button>
+      <button className="float-right uppercase font-bold mx-4 py-4 text-red-400" onClick={onConfirmDelete}> Move to trash </button>
+    </Modal>
     {
       filterTodo(todos, selectedLabel).map((todo, index) => {
-        return <TodoItem todo={todo} key={todo.id}/>
+        return <TodoItem todo={todo} key={todo.id} onDelete={() => {
+          setDeleteId(todo.id);
+          setOpen(true);
+        }}/>
       })
     }
   </div>

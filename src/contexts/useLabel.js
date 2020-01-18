@@ -27,7 +27,7 @@ export const useLabel = (labelId) => {
       id: labelId,
       name: hardCodedNames[labelId],
     };
-    updateLabelName = () => {throw Error("You can't update this label name")};
+    updateLabelName = () => {throw Error(`You can't update this label name: id = ${labelId}`)};
   } else {
     label = matchedLabel[0];
     updateLabelName = (text) => updateLabel(labelId, {name: text});

@@ -50,6 +50,20 @@ export const updateLabel = (labelId, labelData) => {
   }
 }
 
+export const deleteTodosByLabel = (labelId) => {
+
+}
+
+export const removeLabel = (labelId) => {
+  return (dispatch) => {
+    request.delete(`${apiRoot}/labels/${labelId}`)
+    .then(() => {
+      dispatch(actions.removeLabel(labelId));
+    })
+    .catch(console.error)
+  }
+}
+
 export const newList = () => {
   return (dispatch) => {
     request.post(`${apiRoot}/labels`)
