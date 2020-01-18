@@ -7,11 +7,21 @@ jobs:
   
     runs-on: ubuntu-latest
      
-
     steps:
-    - uses: actions/checkout@v1
-    - name: install dependencies
-      run: npm install
-    - name: Build the app
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+ 
+    - name: EC2 deploy
+      env:
+           KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+           ADDRESS: ${{ secrets.EC2_CONNECTION_STRING }}
+           BRANCH: ${GITHUB_REF/refs\/heads\//}
       run: |
-        npm run build
+          echo $KEY >> private_key
+          ssh -i private_key $ADDRESS "mkdir -p cd ~/Projects/todo-app-$BRANCH && 
+               cd ~/Projects/todo-app-$BRANCH &&
+               nvm use --lts &&
+               yarn build
+          "
