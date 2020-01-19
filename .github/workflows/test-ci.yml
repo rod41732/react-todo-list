@@ -4,7 +4,7 @@ on: [push]
 jobs:
      
   build:
-  
+
     runs-on: ubuntu-latest
      
     steps:
@@ -12,16 +12,18 @@ jobs:
       env:
            KEY: ${{ secrets.EC2_PRIVATE_KEY }}
            ADDRESS: ${{ secrets.EC2_CONNECTION_STRING }}
+           LINE_NOTIFY_TOKEN: ${{ secrets.LINE_NOTIFY_TOKEN }}
       run: |
           echo "$KEY" >> private_key.cer;
           chmod 600 private_key.cer;
           BRANCH=${GITHUB_REF/refs\/heads\//}
           CMD="mkdir -p ~/Projects/todo-app-$BRANCH &&
                cd ~/Projects/todo-app-$BRANCH &&
+               ([ $(ls | wc -l) -eq 0 ] && git clone https://github.com/$GITHUB_REPOSITORY . || echo already cloned) &&
                source ~/.bashrc &&
                git pull origin $BRANCH &&
                nvm use --lts &&
                yarn &&
-               yarn build
+               (yarn build | tee build.log) && ./line-notify '$LINE_NOTIFY_TOKEN' 'build success' || ./line-notify.sh '$LINE_NOTIFY_TOKEN' \$(cat -s build.log | tail -10)
           "
           ssh -oStrictHostKeyChecking=no -i private_key.cer "$ADDRESS" "bash --login -i -c '$CMD'"
