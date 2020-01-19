@@ -2,12 +2,10 @@ import React from 'react';
 import TodoMain from './todoMain';
 import Navbar from './navbar';
 import Sidebar from './sidebar';
+import Login from './login';
 import { withTodoApp } from '../hoc/withTodoApp';
 
 
-const Login = () => {
-  return <div>Login</div>
-}
 
 const TodoApp = ({todoApp}) => {
   const {state: { init }, methods: {initData}} = todoApp;
@@ -17,7 +15,7 @@ const TodoApp = ({todoApp}) => {
     initData();
   }
 
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   if (isLoggedIn) {
     return (

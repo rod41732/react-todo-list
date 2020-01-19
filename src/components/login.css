@@ -1,0 +1,12 @@
+.login-form {
+  grid-column: 1 / 3;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-form > * {
+  /* align-self: center;
+  justify-self: center; */
+}
