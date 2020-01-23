@@ -15,7 +15,7 @@ const TodoApp = ({todoApp}) => {
     initData();
   }
 
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   if (isLoggedIn) {
     return (

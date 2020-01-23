@@ -121,8 +121,8 @@ const Sidebar = ({ todoApp }) => {
         labels.map((label, idx) => {
           return <LabelSelector isEditing={isEditing} onDelete={() => {
             setOpen(true);
-            setDeleteId(label.id);
-          }} key={idx} labelId={label.id} isLast={idx === labels.length}/>
+            setDeleteId(label._id);
+          }} key={idx} labelId={label._id} isLast={idx === labels.length}/>
         })
       }
     </div>

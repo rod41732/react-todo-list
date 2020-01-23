@@ -9,7 +9,7 @@ const hardCodedNames = {
 export const useLabel = (labelId) => {
   const todoApp = useContext(TodoContext);
   const {state: {todos, labels}, actions: {selectLabel}, methods: {updateLabel}} = todoApp;
-  const matchedLabel = labels.filter(label => label.id === labelId);
+  const matchedLabel = labels.filter(label => label._id === labelId);
   let label, selectThisLabel, updateLabelName, reminderCount;
 
   switch (labelId) {

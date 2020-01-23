@@ -5,7 +5,6 @@ import { UrgencyIcon } from './common';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { useLabel } from '../contexts/useLabel';
-import { TodoContext } from '../contexts/todoApp';
 import classNames from 'classnames';
 import * as _ from 'lodash';
 import Modal from 'react-modal';
@@ -15,10 +14,9 @@ const filterTodo = (todos, labelId) => {
   else if (labelId === -2) return todos.filter(todo => todo.urgency);
   return todos.filter(todo => todo.label === labelId);
 }
-
 const TodoItem = withTodoApp(({todoApp, todo, onDelete}) => {
   const { methods: {updateTodo}} = todoApp;
-  const { text, urgency = 0, completed, label, id} = todo;
+  const { text, urgency = 0, completed, label, _id} = todo;
   const {label: {name}} = useLabel(label); // label name
   const [editing, setEditing] = useState(false);
   const inputRef = useRef();
@@ -30,7 +28,7 @@ const TodoItem = withTodoApp(({todoApp, todo, onDelete}) => {
   useEffect(() => {
     const handle = setTimeout(() => {
       if (localText !== text || localUrgency !== urgency || localCompleteness !== completed) {
-        updateTodo(id, {
+        updateTodo(_id, {
           text: localText,
           urgency: localUrgency,
           completed: localCompleteness
@@ -43,7 +41,7 @@ const TodoItem = withTodoApp(({todoApp, todo, onDelete}) => {
   });
 
   return (
-    <div key={todo.id } className={
+    <div key={todo._id } className={
       classNames({
         "todo-item": true,
         editing,
@@ -52,7 +50,7 @@ const TodoItem = withTodoApp(({todoApp, todo, onDelete}) => {
       <div className="p-4">
         <input type="checkbox" onClick={() => setLocalCompleteness(!localCompleteness)} checked={localCompleteness}></input>
       </div>
-      <div className="p-4"> {name} {id} - {localCompleteness ? "[V]" : ""}</div>
+      <div className="p-4"> {name} {_id} - {localCompleteness ? "[V]" : ""}</div>
       <p className={
         classNames({
           "p-4 todo-text": true,
@@ -133,8 +131,8 @@ const TodoList = ({ todoApp }) => {
     </Modal>
     {
       filterTodo(todos, selectedLabel).map((todo, index) => {
-        return <TodoItem todo={todo} key={todo.id} onDelete={() => {
-          setDeleteId(todo.id);
+        return <TodoItem todo={todo} key={todo._id} onDelete={() => {
+          setDeleteId(todo._id);
           setOpen(true);
         }}/>
       })

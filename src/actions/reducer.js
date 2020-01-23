@@ -14,10 +14,10 @@ const labels = (state, action) => {
         }
       ];
     case actionTypes.REMOVE_LABEL:
-      return state.filter(label => label.id !== labelId);
+      return state.filter(label => label._id !== labelId);
     case actionTypes.UPDATE_LABEL:
       const newlabels = state.map((label) => {
-        if (label.id === labelId) {
+        if (label._id === labelId) {
           const res = {
             ...label,
             ...action.label,
@@ -47,17 +47,17 @@ const todos = (state, action) => {
       ];
     case actionTypes.UPDATE_TODO:
       return state.map((todo) => {
-        if (todo.id === todoId) return {
+        if (todo._id === todoId) return {
           ...todo,
           ...action.todo,
         }
         return todo;
       });
     case actionTypes.REMOVE_TODO:
-      return state.filter((todo) => todo.id !== todoId);
+      return state.filter((todo) => todo._id !== todoId);
     case actionTypes.TOGGLE_TODO:
       return state.map((todo) => {
-        if (todo.id === todoId) {
+        if (todo._id === todoId) {
           return {
             ...todo,
             completed: !todo.completed,
