@@ -11,13 +11,13 @@ const TodoHeader = ({todoApp}) => {
   } = todoApp;
 
   const {label, updateLabelName, isUpdatable, reminderCount} = useLabel(selectedLabel);
-  const {name, id} = label;
+  const {name, _id} = label;
   const [localName, setLocalName] = useState(name);
   
   // handle when changing list
-  const localId = useRef(id);
-  if (localId.current !== id) {
-    localId.current = id;
+  const localId = useRef(_id);
+  if (localId.current !== _id) {
+    localId.current = _id;
     setLocalName(name);
   }
   const handleInputChange = (evt) => {
@@ -34,9 +34,9 @@ const TodoHeader = ({todoApp}) => {
     };
   });
 
-  return <div className='todo-header p-2' key={id}>
+  return <div className='todo-header p-2' key={_id}>
     <div>
-      ({reminderCount}) # {id}
+      ({reminderCount}) # {_id}
       <input value={localName} onChange={handleInputChange} readOnly={!isUpdatable} className="m-4 p-2"/>
     </div>
     <a href='#'>

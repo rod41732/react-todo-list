@@ -3,14 +3,14 @@
     {
       "id": 1,
       "text": "dogeddddds",
-      "completed": false,
+      "isCompleted": false,
       "label": "programming",
       "name": "hello"
     },
     {
       "id": 2,
       "text": "Hey reactdd",
-      "completed": false,
+      "isCompleted": false,
       "label": "general"
     },
     {

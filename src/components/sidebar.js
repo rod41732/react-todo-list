@@ -32,7 +32,7 @@ const SideBarItem = ({left, right, selected, isLast, target, pkey, isEditing, on
 }
 
 const LabelSelector = ({labelId, isLast, ...otherProps}) => {
-  const {actions:{selectLabel, selectedLabel}} = useContext(TodoContext);
+  const {actions:{selectLabel}, state: {selectedLabel}} = useContext(TodoContext);
   const {label, reminderCount} = useLabel(labelId);
   return <SideBarItem onClick={() => selectLabel(labelId)}
     left={label.name} right={reminderCount}

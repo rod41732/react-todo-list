@@ -12,26 +12,26 @@ import Modal from 'react-modal';
 const filterTodo = (todos, labelId) => {
   if (labelId === -1) return todos;
   else if (labelId === -2) return todos.filter(todo => todo.urgency);
-  return todos.filter(todo => todo.label === labelId);
+  return todos.filter(todo => todo.labelId === labelId);
 }
 const TodoItem = withTodoApp(({todoApp, todo, onDelete}) => {
   const { methods: {updateTodo}} = todoApp;
-  const { text, urgency = 0, completed, label, _id} = todo;
+  const { text, urgency = 0, isCompleted, label, _id} = todo;
   const {label: {name}} = useLabel(label); // label name
   const [editing, setEditing] = useState(false);
   const inputRef = useRef();
   
   const [localText, setLocalText] = useState(text);
   const [localUrgency, setLocalUrgency] = useState(urgency);
-  const [localCompleteness, setLocalCompleteness] = useState(completed);
+  const [localCompleteness, setLocalCompleteness] = useState(isCompleted);
   
   useEffect(() => {
     const handle = setTimeout(() => {
-      if (localText !== text || localUrgency !== urgency || localCompleteness !== completed) {
+      if (localText !== text || localUrgency !== urgency || localCompleteness !== isCompleted) {
         updateTodo(_id, {
           text: localText,
           urgency: localUrgency,
-          completed: localCompleteness
+          isCompleted: localCompleteness
         })
       } 
     }, 300);

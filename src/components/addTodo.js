@@ -18,7 +18,9 @@ const AddTodo = ({todoApp}) => {
   
   let {state: {selectedLabel}, dispatch} = todoApp;
   const [isBusy, setBusy] = useState(false);
-  selectedLabel = Math.max(selectedLabel, 0); // if selecting 'All -1 /Reminder -2, add to 'no catergory'
+  if (!isNaN(+selectedLabel)) {
+    selectedLabel = null; 
+  }
 
   const addTodo = (todo) => {
     setBusy(true);
@@ -59,7 +61,7 @@ const AddTodo = ({todoApp}) => {
     <button disabled={isBusy} className="px-4 py-2" onClick={() => addTodo({
       text,
       urgency,
-      label: selectedLabel,
+      listId: selectedLabel,
     })}> 
       <FontAwesomeIcon icon={faPlus}/>
      </button>

@@ -42,7 +42,7 @@ const todos = (state, action) => {
         ...state,
         {
           ...action.todo,
-          completed: false,
+          isCompleted: false,
         }
       ];
     case actionTypes.UPDATE_TODO:
@@ -60,7 +60,7 @@ const todos = (state, action) => {
         if (todo._id === todoId) {
           return {
             ...todo,
-            completed: !todo.completed,
+            isCompleted: !todo.isCompleted,
           };
         } else {
           return todo;
