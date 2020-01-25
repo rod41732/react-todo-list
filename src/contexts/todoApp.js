@@ -13,6 +13,7 @@ const initialState = {
     mobile: false,
   },
   selectedLabel: -1,
+  user: null, 
   init: {finished: false, inProgress: false}
 };
 

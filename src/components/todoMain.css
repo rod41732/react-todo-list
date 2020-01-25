@@ -4,13 +4,6 @@
   background-color: white;
 }
 
-.todo-main:not(.loading){
-  grid-template-rows: min-content min-content auto;
-}
-
-.todo-main.loading {
-}
-
 @media screen and (max-width: 768px) {
   .todo-main {
     grid-row: 2 / 3;

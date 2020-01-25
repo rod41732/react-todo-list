@@ -95,3 +95,7 @@ export const initSuccess = () => {
 export const initFailed = (error) => {
   return { type: actionTypes.INIT_FAIL, error };
 }
+
+export const login = (id) => {
+  return { type: actionTypes.LOGIN, id: id};
+}

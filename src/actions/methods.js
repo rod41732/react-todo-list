@@ -80,3 +80,20 @@ export const initData = () => {
     }
   }
 }
+
+export const checkStatus = () => {
+
+}
+
+export const login = (username, password) => {
+  return async (dispatch) => {
+    request.agent().post(`${apiRoot}/auth/login`)
+      .send({username, password})
+      .then(res => {
+        console.log(res);
+        const {id } = JSON.parse(res.text);
+        dispatch(actions.login(id));
+      })
+      .catch(console.error)
+  }
+}

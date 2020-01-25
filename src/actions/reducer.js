@@ -106,12 +106,24 @@ const init = (init, action) => {
   }
 }
 
+const user = (user, action) => {
+  switch (action.type) {
+    case actionTypes.LOGIN:
+      return action.id;
+    case actionTypes.LOGOUT:
+      return null;
+    default:
+      return user;
+  }
+}
+
 const reducer = (state, action) => ({
   todos: todos(state.todos, action),
   labels: labels(state.labels, action),
   selectedLabel: selectedLabel(state.selectedLabel, action),
   expanded: expanded(state.expanded, action),
   init: init(state.init, action),
+  user: user(state.user, action),
 });
 
 export default reducer;

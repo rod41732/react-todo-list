@@ -14,15 +14,18 @@ const TodoMain = ({todoApp}) => {
       classnames({
         "todo-main p-4": true,
         "expand-todo": desktop,
-        "loading": !ready,
-      })
-      }>
+      })}>
         <TodoHeader/>
         <AddTodo/>
         <TodoList/>
     </div>;
   }
-  return <div style={{
+  // to inherit the expanded-ness
+  return <div className={
+    classnames({
+      "todo-main p-4": true,
+      "expand-todo": desktop,
+    })} style={{
     display: "grid",
     alignItems: "center",
   }}>
