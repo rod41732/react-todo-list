@@ -1,11 +1,16 @@
 name: CI
-on: [push]
-
+on:
+  push:
+    branches:
+      - master
+      - dev
+  
 jobs:
      
   build:
 
     runs-on: ubuntu-latest
+     
      
     steps:
     - name: EC2 deploy
