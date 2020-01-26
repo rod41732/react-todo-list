@@ -25,11 +25,9 @@ const TodoItem = withTodoApp(({todoApp, todo, onDelete}) => {
   const [localUrgency, setLocalUrgency] = useState(urgency);
   const [localCompleteness, setLocalCompleteness] = useState(isCompleted);
   
-  
-  
   useEffect(() => {
     const handle = setTimeout(() => {
-      if (localText !== text || localUrgency !== urgency || labelId !== isCompleted) {
+      if (localText !== text || localUrgency !== urgency || localCompleteness !== isCompleted) {
         updateTodo(_id, {
           text: localText,
           urgency: localUrgency,
