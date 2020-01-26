@@ -12,7 +12,7 @@ import Modal from 'react-modal';
 const filterTodo = (todos, labelId) => {
   if (labelId === -1) return todos;
   else if (labelId === -2) return todos.filter(todo => todo.urgency);
-  return todos.filter(todo => todo.labelId === labelId);
+  return todos.filter(todo => todo.listId === labelId);
 }
 const TodoItem = withTodoApp(({todoApp, todo, onDelete}) => {
   const { methods: {updateTodo}} = todoApp;
@@ -25,9 +25,11 @@ const TodoItem = withTodoApp(({todoApp, todo, onDelete}) => {
   const [localUrgency, setLocalUrgency] = useState(urgency);
   const [localCompleteness, setLocalCompleteness] = useState(isCompleted);
   
+  
+  
   useEffect(() => {
     const handle = setTimeout(() => {
-      if (localText !== text || localUrgency !== urgency || localCompleteness !== isCompleted) {
+      if (localText !== text || localUrgency !== urgency || labelId !== isCompleted) {
         updateTodo(_id, {
           text: localText,
           urgency: localUrgency,
