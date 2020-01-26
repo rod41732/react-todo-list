@@ -26,7 +26,7 @@ jobs:
                cd ~/Projects/todo-app-$BRANCH &&
                ([ \$(ls | wc -l) -eq 0 ] && git clone https://github.com/$GITHUB_REPOSITORY . || echo already cloned) &&
                source ~/.bashrc &&
-               (git pull origin $BRANCH || (./line-notify.sh '$LINE_NOTIFY_TOKEN' 'branch: $BRANCH dev: pull failed, check the local repo' && false)) &&
+               (git checkout $BRANCH && git pull origin $BRANCH || (./line-notify.sh '$LINE_NOTIFY_TOKEN' 'branch: $BRANCH dev: pull failed, check the local repo' && false)) &&
                nvm use --lts &&
                yarn &&
                (yarn build | tee build.log) && ./line-notify.sh '$LINE_NOTIFY_TOKEN' 'branch: $BRANCH build success' ||
