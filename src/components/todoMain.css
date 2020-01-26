@@ -3,6 +3,9 @@
   display: grid;
   background-color: white;
 }
+.todo-main:not(.loading){
+  grid-template-rows: min-content min-content auto;
+}
 
 @media screen and (max-width: 768px) {
   .todo-main {
