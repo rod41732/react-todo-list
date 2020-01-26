@@ -14,10 +14,10 @@ const Navbar = ({todoApp}) => {
       </div>
       <div className="nav-item pl-4 float-left">TODO APP</div>
       <div className="nav-item nav-right px-8 float-right">
-        <Link to="/">
+        <Link to={`${process.env.PUBLIC_URL}/`}>
           <div className="px-4">Menu 1 </div>
         </Link>
-        <Link to="/account">
+        <Link to={`${process.env.PUBLIC_URL}/account`}>
           <div className="icon-wrapper">
             <FontAwesomeIcon icon={faUserCircle} />
           </div>
