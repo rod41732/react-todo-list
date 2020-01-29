@@ -31,7 +31,7 @@ const TodoApp = ({todoApp}) => {
         setLoggedIn(true);
       })
       .catch(err => {
-        console.error(err);
+        console.dir(err);
         setLoggedIn(false);
       })
   }

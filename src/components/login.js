@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { TodoContext } from "../contexts/todoApp";
 import './login.css'
 import request from 'superagent';
@@ -7,8 +7,10 @@ const LoginForm = () => {
   
   const userRef = useRef();
   const passwordRef = useRef();
+  const emailRef = useRef();
   const {methods: {login}} = useContext(TodoContext);
-  
+  const [isRegistering, setRegistering] = useState(false);
+
   const register = () => {
     console.log('username', userRef.current.value, 'apassword', passwordRef.current.value)
     const username = userRef.current.value;
@@ -40,16 +42,32 @@ const LoginForm = () => {
       <div className="flex mt-4">
         <div className="flex-auto mx-2">
           <div className="text-sm font-bold text-gray-500"> Password </div>
-          <input ref={passwordRef} className="p-2"/>
+          <input type="password" ref={passwordRef} className="p-2"/>
         </div>
-        {/* <div className="flex-auto mx-2">
-          <div className="text-sm font-bold text-gray-500"> Bar </div>
-          <input className="p-2"/>
-        </div> */}
       </div>
-      <div className="buttons w-full flex flex-row">
-        <button className="flex-1 p-4" onClick={onLogin}> LOGIN </button>
-        <button className="flex-1 p-4" onClick={register}> REGISTER </button>
+      {
+        isRegistering && 
+        <div className="flex mt-4">
+          <div className="flex-auto mx-2">
+            <div className="text-sm font-bold text-gray-500"> Email </div>
+            <input ref={emailRef} className="p-2"/>
+          </div>
+        </div>
+      }
+      <div className="buttons w-full flex flex-col">
+        {
+          !isRegistering && <>
+            <button className="flex-1 p-4" onClick={onLogin}> LOGIN </button>
+            <div className="flex-1 text-center text-red-400" onClick={()=> setRegistering(!isRegistering)}> no account ? register now </div>
+          </>
+        }
+        {
+          isRegistering && 
+          <>
+            <button className="flex-1 p-4" onClick={register}> REGISTER </button>
+            <div className="flex-1 text-center text-red-400" onClick={()=> setRegistering(!isRegistering)}> already has an account ? login </div>
+          </>
+        }
       </div>
 
     </div>
